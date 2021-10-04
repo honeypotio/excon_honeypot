@@ -11,7 +11,7 @@ Example:
 
     Excon.post_json('https://foo.bar/users', json: payload)
 
-- `response.parsed_body` helper method for easier parsing of responses
+- `response.parsed_body` helper method for easier parsing of json responses
 
 Example:
 
