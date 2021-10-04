@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'excon'
 require 'json'
 
 Excon.defaults[:expects] = [200, 201, 204]
