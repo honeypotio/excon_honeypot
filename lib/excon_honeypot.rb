@@ -7,11 +7,11 @@ Excon.defaults[:expects] = [200, 201, 204]
 
 module Excon
   def self.post(url, params = {}, &block)
-    super(url, with_json(params), &block)
+    new(url, with_json(params)).request(method: :post, &block)
   end
 
   def self.put(url, params = {}, &block)
-    super(url, with_json(params), &block)
+    new(url, with_json(params)).request(method: :put, &block)
   end
 
   def self.with_json(params)
