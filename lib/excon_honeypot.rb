@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-require 'excon'
 require 'json'
+require 'excon'
+require_relative './excon/middleware/logger'
 
 Excon.defaults[:expects] = [200, 201, 204]
+Excon.defaults[:middlewares].push(Excon::Middleware::Logger)
 
 module Excon
   def self.post(url, params = {}, &block)
