@@ -31,11 +31,13 @@ module Excon
         request_id = datum[:headers]['x-request-id']
         status = datum[:response][:status]
         response_body = datum[:response][:body]&.squish
-        duration = ((Time.zone.now - datum[:start_time]) * 1000).round(0)
+        start_time = datum[:start_time]
+        duration = start_time ? ((Time.zone.now - start_time) * 1000).round(0) : nil
         message = "Excon: Request with ID: #{request_id} #{method} #{scheme}://#{host}#{path}"
         message += "?#{query}" if query
         message += " with body: \"#{body}\"" if body
-        message += " returned #{status} and took #{duration}ms"
+        message += " returned #{status}"
+        message += " and took #{duration}ms" if duration
 
         Rails.logger.info(message)
         Rails.logger.info("Excon: Response payload \"#{response_body}\"")
