@@ -26,8 +26,10 @@ module Excon
   end
 end
 
-class Excon::Response
-  def parsed_body(**params)
-    JSON.parse(body, **params)
+module Excon
+  class Response
+    def parsed_body(**params)
+      JSON.parse(body, **params)
+    end
   end
 end

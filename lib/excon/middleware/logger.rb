@@ -21,6 +21,7 @@ module Excon
 
       private
 
+      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def log_request(datum)
         method = datum[:method].to_s.upcase
         scheme = datum[:scheme]
@@ -42,6 +43,7 @@ module Excon
         Rails.logger.info(message)
         Rails.logger.info("Excon: Response payload \"#{response_body}\"")
       end
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
     end
   end
 end
