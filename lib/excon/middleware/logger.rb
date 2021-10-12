@@ -30,8 +30,9 @@ module Excon
         query = datum[:query]
         body = datum[:connection].data[:body]&.squish
         request_id = datum[:headers]['x-request-id']
-        status = datum[:response][:status]
-        response_body = datum[:response][:body]&.squish
+        response = datum[:response] || {}
+        status = response[:status]
+        response_body = response[:body]&.squish
         start_time = datum[:start_time]
         duration = start_time ? ((Time.zone.now - start_time) * 1000).round(0) : nil
         message = "Excon: Request with ID: #{request_id} #{method} #{scheme}://#{host}#{path}"
