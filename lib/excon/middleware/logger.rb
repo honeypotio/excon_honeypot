@@ -38,7 +38,7 @@ module Excon
         message = "Excon: Request with ID: #{request_id} #{method} #{scheme}://#{host}#{path}"
         message += "?#{query}" if query
         message += " with body: \"#{body}\"" if body
-        message += " returned #{status}"
+        message += " returned #{status}" if status
         message += " and took #{duration}ms" if duration
 
         Rails.logger.info(message)
