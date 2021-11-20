@@ -24,10 +24,7 @@ module Excon
       # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def log_request(datum)
         method = datum[:method].to_s.upcase
-        scheme = datum[:scheme]
-        host = datum[:host]
-        path = datum[:path]
-        query = datum[:query]
+        url = build_url(datum)
         body = datum[:connection].data[:body]&.squish
         request_id = datum[:headers]['x-request-id']
         response = datum[:response] || {}
@@ -35,8 +32,7 @@ module Excon
         response_body = response[:body]&.squish
         start_time = datum[:start_time]
         duration = start_time ? ((Time.zone.now - start_time) * 1000).round(0) : nil
-        message = "Excon: Request with ID: #{request_id} #{method} #{scheme}://#{host}#{path}"
-        message += "?#{query}" if query
+        message = "Excon: Request with ID: #{request_id} #{method} #{url}"
         message += " with body: \"#{body}\"" if body
         message += " returned #{status}" if status
         message += " and took #{duration}ms" if duration
@@ -45,6 +41,20 @@ module Excon
         Rails.logger.info("Excon: Response payload \"#{response_body}\"")
       end
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+      def build_url(datum)
+        scheme = datum[:scheme]
+        host = datum[:host]
+        path = datum[:path]
+        port = datum[:port]
+        query = datum[:query]
+
+        url = "#{scheme}://#{host}"
+        url += ":#{port}" unless [80, 443].include?(port)
+        url += path
+        url += "?#{query}" if query
+        url
+      end
     end
   end
 end
