@@ -3,6 +3,14 @@
 module Excon
   module Middleware
     class Logger < Base
+      @@sensitive_data = []
+
+      def self.mask_sensitive_data(value)
+        Array(value).each do |val|
+          @@sensitive_data << val
+        end
+      end
+
       def request_call(datum)
         datum[:start_time] = Time.zone.now
         datum[:headers]['x-request-id'] ||= SecureRandom.uuid
@@ -36,6 +44,11 @@ module Excon
         message += " with body: \"#{body}\"" if body
         message += " returned #{status}" if status
         message += " and took #{duration}ms" if duration
+
+        @@sensitive_data.each do |sensitive_data|
+          message.gsub!(sensitive_data, '<filtered>')
+          response_body.gsub!(sensitive_data, '<filtered>')
+        end
 
         Rails.logger.info(message)
         Rails.logger.info("Excon: Response payload \"#{response_body}\"")
