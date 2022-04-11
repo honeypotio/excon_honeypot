@@ -16,6 +16,10 @@ module Excon
     new(url, with_json(params)).request(method: :put, &block)
   end
 
+  def self.patch(url, params = {}, &block)
+    new(url, with_json(params)).request(method: :patch, &block)
+  end
+
   def self.with_json(params)
     return params if params[:json].nil?
 
