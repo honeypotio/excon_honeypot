@@ -46,8 +46,8 @@ module Excon
         message += " and took #{duration}ms" if duration
 
         @@sensitive_data.each do |sensitive_data|
-          message.gsub!(sensitive_data, '<filtered>')
-          response_body.gsub!(sensitive_data, '<filtered>')
+          message&.gsub!(sensitive_data, '<filtered>')
+          response_body&.gsub!(sensitive_data, '<filtered>')
         end
 
         Rails.logger.info(message)
