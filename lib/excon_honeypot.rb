@@ -34,7 +34,7 @@ end
 module Excon
   class Response
     def parsed_body(**params)
-      JSON.parse(body, **params)
+      JSON.parse(body, **params) unless body.empty?
     end
   end
 end
