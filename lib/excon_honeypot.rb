@@ -21,9 +21,10 @@ module Excon
   end
 
   def self.with_json(params)
-    return params if params[:json].nil?
+    json = params.delete(:json)
+    return params if json.nil?
 
-    params[:body] ||= JSON.dump(params[:json])
+    params[:body] ||= JSON.dump(json)
     params[:headers] ||= {}
     params[:headers]['Content-Type'] = 'application/json'
     params
