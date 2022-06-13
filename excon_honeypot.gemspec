@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'excon_honeypot'
-  spec.version       = '0.1.13'
+  spec.version       = '0.1.14'
   spec.authors       = ['Andrzej Trzaska']
   spec.email         = ['atrzaska2@gmail.com']
 
