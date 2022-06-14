@@ -46,8 +46,8 @@ module Excon
         message += " and took #{duration}ms" if duration
 
         @@sensitive_data.each do |sensitive_data|
-          next unless sensitive_data.present?
-          
+          next if sensitive_data.nil?
+
           message&.gsub!(sensitive_data, '<filtered>')
           response_body&.gsub!(sensitive_data, '<filtered>')
         end
