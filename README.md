@@ -7,8 +7,6 @@ It adds following functionality:
 - default options: expects: [200, 201, 204]
 - raise exception if status is not expected
 - `Excon.post`, `Excon.put`, `Excon.patch` `json` helper param for requests with json bodies. Json data can be passed with `json` hash param.
-- Log excon requests with rails logger
-- Mask sensitive data in logs
 
 Example:
 
@@ -16,6 +14,8 @@ Example:
     Excon.put('https://foo.bar/users/5', json: payload)
 
 - `response.parsed_body` helper method for easier parsing of json responses
+- Log excon requests with rails logger
+- Mask sensitive data in logs
 
 Example:
 
