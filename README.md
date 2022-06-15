@@ -5,7 +5,10 @@ This gem is a plugin to excon gem https://github.com/excon/excon .
 It adds following functionality:
 
 - default options: expects: [200, 201, 204]
-- `Excon.post`, `Excon.put` `json` helper param for requests with json bodies. Json data can be passed with `json` hash param.
+- raise exception if status is not expected
+- `Excon.post`, `Excon.put`, `Excon.patch` `json` helper param for requests with json bodies. Json data can be passed with `json` hash param.
+- Log excon requests with rails logger
+- Mask sensitive data in logs
 
 Example:
 
