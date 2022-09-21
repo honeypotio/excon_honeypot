@@ -25,7 +25,7 @@ module Excon
     return params if json.nil?
 
     params[:body] ||= JSON.dump(json)
-    params[:headers] ||= {}
+    params[:headers] = params[:headers].dup || {}
     params[:headers]['Content-Type'] = 'application/json'
     params
   end
